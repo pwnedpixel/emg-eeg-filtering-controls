@@ -1,0 +1,4 @@
+*.png
+*.pyc
+!green.png
+!red.png
