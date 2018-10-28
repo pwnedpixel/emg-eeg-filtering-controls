@@ -6,6 +6,4 @@ import timeit
 from signalGenerator import *
 
 
-print timeit.timeit('filterEMG(time, emg)','from signalGenerator import getSampleTwo; from filterEMG import filterEMG; emg, time = getSampleTwo()', number=1000)
-print timeit.timeit('filterEMG(time, emg)','from signalGenerator import getSampleTwo; from filterEMG import filterEMG; emg, time = getSampleTwo()', number=1000)
-print timeit.timeit('filterEMG(time, emg)','from signalGenerator import getSampleTwo; from filterEMG import filterEMG; emg, time = getSampleTwo()', number=1000)
+print timeit.timeit('filterEMG(time, emg)','from signalGenerator import getSampleTwo; from filterEMG import filterEMG; emg, time = getSampleTwo()', number=500)
