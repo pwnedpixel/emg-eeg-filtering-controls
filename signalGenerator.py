@@ -44,3 +44,18 @@ def getSampleTwo():
     time = np.array([i*1.0/1000.0 for i in range(0, len(emg), 1)])
 
     return emg, time
+
+def getRealSample():
+    emg = []
+    file_object = open("EMG2sec.txt", "r")
+    lines = file_object.readlines()
+    for line in lines:
+        items = line.split(", ")
+        emg = emg + [items[2]]
+    time = np.array([i*1.0/200.0 for i in range(0, len(emg), 1)])
+    
+    return np.array(emg).astype(np.float), time
+
+
+# emg, time = getRealSample()
+# print max(abs(emg))
