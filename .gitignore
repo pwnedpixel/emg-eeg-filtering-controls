@@ -2,3 +2,5 @@
 *.pyc
 !green.png
 !red.png
+.vscode/desktop.ini
+desktop.ini

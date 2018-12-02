@@ -46,6 +46,7 @@ def getSampleTwo():
     return emg, time
 
 def getRealSample():
+    # 1= tricep, 2 = bicep, 3/4 are EEG
     emg = []
     file_object = open("EMG2sec.txt", "r")
     lines = file_object.readlines()
@@ -56,6 +57,16 @@ def getRealSample():
     
     return np.array(emg).astype(np.float), time
 
+def getEEGSample():
+    eeg = []
+    file_object = open("EMG2sec.txt", "r")
+    lines = file_object.readlines()
+    for line in lines:
+        items = line.split(", ")
+        eeg = eeg + [items[3]]
+    time = np.array([i*1.0/200.0 for i in range(0, len(eeg), 1)])
+    
+    return np.array(eeg).astype(np.float), time
 
 # emg, time = getRealSample()
 # print max(abs(emg))
