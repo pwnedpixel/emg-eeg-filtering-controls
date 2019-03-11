@@ -12,52 +12,7 @@ import time as tm
 import timeit
 from PIL import Image, ImageDraw
 import mne
-
-class FrameBuffer(object):
-    frameBuffer = np.zeros(2)
-    frameBufferEEG = np.zeros(2)
-    emgFromFile = []
-    eegFromFile = []
-    timeFromFile = []
-    eegTimeFromFile = []
-    currentIndex = 0
-
-    @staticmethod
-    def getBuffer():
-        return FrameBuffer.frameBuffer
-
-    @staticmethod
-    def getBufferEEG():
-        return FrameBuffer.frameBufferEEG
-
-    @staticmethod
-    def addElement(x):
-        FrameBuffer.frameBuffer = np.concatenate([[x], FrameBuffer.frameBuffer[:-1]])
-
-    @staticmethod
-    def addEEGBuffer(x):
-        FrameBuffer.frameBufferEEG = np.concatenate([[x], FrameBuffer.frameBufferEEG[:-1]])
-    
-    @staticmethod
-    def loadData():
-        FrameBuffer.emgFromFile, FrameBuffer.timeFromFile = getRealSample()
-        FrameBuffer.eegFromFile, FrameBuffer.eegTimeFromFile = getEEGSample()
-    
-    @staticmethod
-    def getNextSample():
-        emg = FrameBuffer.emgFromFile[0:200]
-        FrameBuffer.emgFromFile = np.concatenate([FrameBuffer.emgFromFile[200:],FrameBuffer.emgFromFile[0:200]])
-        time = np.array([i*1.0/200.0 for i in range(0, len(emg), 1)])
-
-        return np.array(emg).astype(np.float), time
-
-    @staticmethod
-    def getNextEEGSample():
-        eeg = FrameBuffer.eegFromFile[0:200]
-        FrameBuffer.eegFromFile = np.concatenate([FrameBuffer.eegFromFile[200:],FrameBuffer.eegFromFile[0:200]])
-        time = np.array([i*1.0/200.0 for i in range(0, len(eeg), 1)])
-
-        return np.array(eeg).astype(np.float), time
+from FrameBuffer import FrameBuffer 
 
 fig = plt.figure(figsize=(12,6))
 
@@ -127,7 +82,7 @@ def update(frame):
 
 # Animate the graphs
 FrameBuffer.loadData()
-ani = FuncAnimation(fig, update, blit=True, interval=100, save_count=50)
+ani = FuncAnimation(fig, update, blit=True, interval=200, save_count=50)
 # raw = mne.io.read_raw_edf("S001R04.edf", preload=True)
 # raw.set_eeg_reference("average", projection=False)
 # events = mne.find_events(raw)

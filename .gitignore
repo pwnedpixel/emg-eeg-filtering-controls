@@ -4,3 +4,7 @@
 !red.png
 .vscode/desktop.ini
 desktop.ini
+*.xlsx
+*.txt
+*.vsdx
+src/proptester.py

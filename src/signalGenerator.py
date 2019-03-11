@@ -2,6 +2,14 @@
 import random
 import numpy as np
 
+fileNames = [
+    "EMG2sec.txt",
+    "normalFlexRelease-4-sec.txt",
+    "record.csv_2019-1-15_21-48-27.txt"
+]
+
+selectedFile = fileNames[1]
+
 # Generates a signal with three zones, each zone is either high or low
 def getSampleOne():
 
@@ -48,18 +56,18 @@ def getSampleTwo():
 def getRealSample():
     # 1= tricep, 2 = bicep, 3/4 are EEG
     emg = []
-    file_object = open("EMG2sec.txt", "r")
+    file_object = open(selectedFile, "r")
     lines = file_object.readlines()
     for line in lines:
-        items = line.split(", ")
-        emg = emg + [items[2]]
+        items = line.split(",")
+        emg = emg + [items[1]]
     time = np.array([i*1.0/200.0 for i in range(0, len(emg), 1)])
     
     return np.array(emg).astype(np.float), time
 
 def getEEGSample():
     eeg = []
-    file_object = open("EMG2sec.txt", "r")
+    file_object = open(selectedFile, "r")
     lines = file_object.readlines()
     for line in lines:
         items = line.split(", ")
