@@ -1,15 +1,13 @@
 import numpy as np
 
 # given a filtered EMG signal, determines whether or not the brace should move
-def processIntentEMG(filteredSignal, frameBuffer):
-    #moveThres: original readings: 0.1
-    #           new readings: 0.02
-    moveThres = 0.025
-    # if the mean signal is above moveThres (samples can be 0-1), the brace should move
-    if (np.std(filteredSignal) > moveThres):
+def processIntentEMG(filteredSignal, frameBuffer, moveThres):
+    # if the mean signal is above moveThres, the brace should move
+    stanadardDeviation = np.std(filteredSignal)
+    if (stanadardDeviation > moveThres):
         #print 1
         return 1
-    elif 1 in frameBuffer:
+    elif frameBuffer == 1:
         #print 1
         return 2
     else:
@@ -19,8 +17,6 @@ def processIntentEMG(filteredSignal, frameBuffer):
 # given a filtered EEG signal, determines whether or not the brace should move
 def processIntentEEG(filteredSignal, frameBuffer):
     hjorthVal = hjorth(filteredSignal)
-    # print "hjorth: " + str(hjorthVal)
-    # print "deviation: " + str(deviation)
 
     if (hjorthVal < 1.06):
         return 1
@@ -42,4 +38,5 @@ def hjorth(a):
     complexity = np.sqrt(var_d2 / var_d1) / mobility
 
     return complexity
+    # Change the return variable to select which Hjorth param is returned
     # return activity, mobility, complexity
